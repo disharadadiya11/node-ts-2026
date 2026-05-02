@@ -26,7 +26,7 @@ export default class UserService {
     await result.save();
 
     result = {
-      ...result._doc,
+      ...(result as any)._doc,
       password: undefined,
       token: generateToken({ _id: result._id }),
     };
@@ -76,7 +76,7 @@ export default class UserService {
     }
 
     result = {
-      ...result._doc,
+      ...(result as any)._doc,
       password: undefined,
       token: generateToken({ _id: result._id }),
     };
@@ -126,7 +126,7 @@ export default class UserService {
         $match: matchQuery,
       },
       {
-        $sort: { "meta.createdAt": -1 },
+        $sort: { "meta.createdAt": -1 } as const,
       },
       {
         $skip: skip,

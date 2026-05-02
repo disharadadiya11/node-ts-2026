@@ -1,11 +1,12 @@
 import { StatusCodes } from "http-status-codes";
-import { Request, Response } from "express";
+import { Response } from "express";
+import { CustomRequest } from "../types/express";
 import TaskService from "../services/task.service";
 import { errorResponse } from "../utils/response.utils";
 
 const taskService = new TaskService();
 
-export const add = async (req: Request, res: Response) => {
+export const add = async (req: CustomRequest, res: Response) => {
   try {
     const result = await taskService.add(req.body, req.user);
     return res.status(result.statusCode).json(result);
@@ -19,9 +20,9 @@ export const add = async (req: Request, res: Response) => {
   }
 };
 
-export const update = async (req: Request, res: Response) => {
+export const update = async (req: CustomRequest, res: Response) => {
   try {
-    const result = await taskService.update(req.params.id, req.body, req.user);
+    const result = await taskService.update(req.params.id as string, req.body, req.user);
     return res.status(result.statusCode).json(result);
   } catch (error: any) {
     console.log(error);
@@ -33,9 +34,9 @@ export const update = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteTask = async (req: Request, res: Response) => {
+export const deleteTask = async (req: CustomRequest, res: Response) => {
   try {
-    const result = await taskService.delete(req.params.id, req.user);
+    const result = await taskService.delete(req.params.id as string, req.user);
     return res.status(result.statusCode).json(result);
   } catch (error: any) {
     console.log(error);
@@ -47,9 +48,9 @@ export const deleteTask = async (req: Request, res: Response) => {
   }
 };
 
-export const get = async (req: Request, res: Response) => {
+export const get = async (req: CustomRequest, res: Response) => {
   try {
-    const result = await taskService.get(req.params.id);
+    const result = await taskService.get(req.params.id as string);
     return res.status(result.statusCode).json(result);
   } catch (error: any) {
     console.log(error);
@@ -61,7 +62,7 @@ export const get = async (req: Request, res: Response) => {
   }
 };
 
-export const getAll = async (req: Request, res: Response) => {
+export const getAll = async (req: CustomRequest, res: Response) => {
   try {
     const result = await taskService.getAll(req.query);
     return res.status(result.statusCode).json(result);
