@@ -2,13 +2,17 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import express from "express";
+import fileUpload from "express-fileupload";
 import { connectDB } from "./src/config/db.config";
 import routes from "./src/routes/index.routes";
 
 const app = express();
 
 // Middleware
+
+app.use(fileUpload());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 console.log("App starting...");
 
