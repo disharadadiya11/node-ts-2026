@@ -1,0 +1,19 @@
+npm init -y
+npx tsc --init
+
+# Core
+
+npm install express
+
+# TypeScript support
+
+npm install -D typescript ts-node nodemon @types/node @types/express
+
+# Optional but important
+
+npm install dotenv
+
+npm install mongoose
+npm install -D @types/mongoose
+
+npm install -D ts-node typescript
