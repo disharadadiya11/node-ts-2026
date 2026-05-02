@@ -17,3 +17,5 @@ npm install mongoose
 npm install -D @types/mongoose
 
 npm install -D ts-node typescript
+
+npm install @types/jsonwebtoken @types/bcrypt @types/node

@@ -20,8 +20,11 @@
   },
   "homepage": "https://github.com/disharadadiya11/node-ts-2026#readme",
   "dependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "http-status-codes": "^2.3.0",
     "mongoose": "^9.6.1"
   },
   "devDependencies": {

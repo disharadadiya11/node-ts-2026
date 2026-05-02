@@ -3,14 +3,21 @@ dotenv.config();
 
 import express from "express";
 import { connectDB } from "./src/config/db.config";
+import routes from "./src/routes/index.routes";
 
 const app = express();
+
+// Middleware
+app.use(express.json());
 
 console.log("App starting...");
 
 const startServer = async () => {
   try {
     await connectDB();
+
+    // Routes
+    app.use("/api", routes);
 
     const PORT = process.env.PORT || 5000;
 
