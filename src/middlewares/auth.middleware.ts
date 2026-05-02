@@ -1,19 +1,23 @@
-import { Request, Response, NextFunction } from 'express';
-import { USER } from '../constants/message';
-import User from '../models/user.model';
-import { StatusCodes } from 'http-status-codes';
-import { verifyToken } from '../utils/jwt.utils';
-import { errorResponse } from '../utils/response.utils';
-import { protectedRoutes, ProtectedRoute } from '../routes/protected.routes';
-import { match } from 'path-to-regexp';
+import { Request, Response, NextFunction } from "express";
+import { USER } from "../constants/message";
+import User from "../models/user.model";
+import { StatusCodes } from "http-status-codes";
+import { verifyToken } from "../utils/jwt.utils";
+import { errorResponse } from "../utils/response.utils";
+import { protectedRoutes, ProtectedRoute } from "../routes/protected.routes";
+import { match } from "path-to-regexp";
 
 interface AuthenticatedRequest extends Request {
   user?: any;
 }
 
-export const authenticate = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+export const authenticate = async (
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
-    const token = req.headers?.authorization?.split(' ')[1];
+    const token = req.headers?.authorization?.split(" ")[1];
     if (!token) {
       return res
         .status(StatusCodes.UNAUTHORIZED)
@@ -39,12 +43,20 @@ export const authenticate = async (req: AuthenticatedRequest, res: Response, nex
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .json(
-        errorResponse(StatusCodes.INTERNAL_SERVER_ERROR, true, (error as Error).message),
+        errorResponse(
+          StatusCodes.INTERNAL_SERVER_ERROR,
+          true,
+          (error as Error).message,
+        ),
       );
   }
 };
 
-export const applyAuthenticate = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+export const applyAuthenticate = async (
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const matchRoute = protectedRoutes.find((route: ProtectedRoute) => {
       const isMatch = match(route.path);
@@ -68,7 +80,11 @@ export const applyAuthenticate = async (req: AuthenticatedRequest, res: Response
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .json(
-        errorResponse(StatusCodes.INTERNAL_SERVER_ERROR, true, (error as Error).message),
+        errorResponse(
+          StatusCodes.INTERNAL_SERVER_ERROR,
+          true,
+          (error as Error).message,
+        ),
       );
   }
 };
