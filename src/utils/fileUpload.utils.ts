@@ -4,7 +4,7 @@ import { UploadedFile } from "express-fileupload";
 
 export const uploadFile = async (
   file: UploadedFile,
-  baseUrl: string
+  baseUrl: string,
 ): Promise<string | null> => {
   if (!file) return null;
 

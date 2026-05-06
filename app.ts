@@ -3,6 +3,7 @@ dotenv.config();
 
 import express from "express";
 import fileUpload from "express-fileupload";
+import path from "path";
 import { connectDB } from "./src/config/db.config";
 import routes from "./src/routes/index.routes";
 import { applyAuthenticate } from "./src/middlewares/auth.middleware";
@@ -14,6 +15,7 @@ connectDB();
 app.use(fileUpload());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/uploads", express.static(path.join(__dirname, "src/uploads")));
 app.use(applyAuthenticate);
 app.use("/api", routes);
 
